@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AthleteMosaic</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="min-h-screen bg-gradient">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="index.html" class="logo">
+                        <img src="logo.png" alt="AthleteMosaic Logo">
+                        <span class="logo-text">AthleteMosaic</span>
+                    </a>
+                    <nav class="nav">
+                        <ul class="nav-links">
+                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="features.html" class="nav-link">Features</a></li>
+                            <li><a href="about.html" class="nav-link">About</a></li>
+                            <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="signup-section">
+                <div class="container">
+                    <h1 class="section-title">Create Your Account</h1>
+                    <form id="signup-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="cta-button">Sign Up</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; <span class="copyright-year"></span> AthleteMosaic. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('signup-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Handle form submission logic here
+                alert('Sign Up Successful!');
+            });
+        });
+
+    </script>
+</body>
+</html>
