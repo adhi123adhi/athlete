@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Community</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            background: white;
+            color: black;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .delete-btn {
+            background-color: #dc3545;
+            padding: 5px 10px;
+            margin-top: 10px;
+        }
+        .post {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-align: left;
+            position: relative;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .post img, .post video {
+            max-width: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
+            animation: popIn 0.5s ease-in-out;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .post:hover {
+            transform: scale(1.02);
+            transition: transform 0.3s ease-in-out;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(30px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Athlete Community</h2>
+        <input type="text" id="athleteName" placeholder="Your Name" />
+        <textarea id="achievement" placeholder="Share your achievement or event details"></textarea>
+        <input type="url" id="postLink" placeholder="Provide a link (optional)" />
+        <input type="file" id="mediaUpload" accept="image/*,video/*" />
+        <button onclick="postAchievement()" style="background-color: #007bff;">Post</button>
+        <div class="posts" id="posts"></div>
+    </div>
+
+    <script>
+        function postAchievement() {
+            const name = document.getElementById('athleteName').value;
+            const achievement = document.getElementById('achievement').value;
+            const link = document.getElementById('postLink').value;
+            const mediaInput = document.getElementById('mediaUpload');
+            
+            if (!name || !achievement) {
+                alert("Please fill in all fields before posting.");
+                return;
+            }
+            
+            const postContainer = document.createElement('div');
+            postContainer.classList.add('post');
+            postContainer.innerHTML = `<strong>${name}</strong><p>${achievement}</p>`;
+            
+            if (link) {
+                const linkElement = document.createElement('a');
+                linkElement.href = link;
+                linkElement.textContent = "View More";
+                linkElement.target = "_blank";
+                linkElement.style.display = "block";
+                linkElement.style.marginTop = "5px";
+                postContainer.appendChild(linkElement);
+            }
+            
+            if (mediaInput.files.length > 0) {
+                const file = mediaInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (file.type.startsWith('image')) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        postContainer.appendChild(img);
+                    } else if (file.type.startsWith('video')) {
+                        const video = document.createElement('video');
+                        video.src = e.target.result;
+                        video.controls = true;
+                        postContainer.appendChild(video);
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.onclick = function() {
+                postContainer.style.animation = 'fadeOut 0.5s ease-in-out';
+                setTimeout(() => postContainer.remove(), 500);
+            };
+            
+            postContainer.appendChild(deleteButton);
+            document.getElementById('posts').prepend(postContainer);
+            
+            document.getElementById('athleteName').value = '';
+            document.getElementById('achievement').value = '';
+            document.getElementById('postLink').value = '';
+            document.getElementById('mediaUpload').value = '';
+        }
+    </script>
+</body>
+</html>

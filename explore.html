@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Explore Sports & Events</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e6f7ff; /* Light blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333; /* Dark text color */
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 900px; /* Increased width */
+            display: flex;
+        }
+
+        .sports-list {
+            flex: 2;
+            padding-right: 30px; /* Increased padding */
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .events-list {
+            flex: 2;
+            padding-left: 30px; /* Increased padding */
+            padding-right: 30px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .search-column {
+            flex: 1;
+            padding-left: 30px; /* Increased padding */
+        }
+
+        h2 {
+            text-align: left;
+            margin-bottom: 25px;
+            color:#4b5320; /* Blue heading color */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            color: #555; /* Medium text color */
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+
+        #search-input {
+            width: calc(100% - 22px);
+            padding: 12px; /* Increased padding */
+            margin-bottom: 25px; /* Increased margin */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color:#4b5320;
+            box-shadow: 0 0 5px #4b5320;
+        }
+
+        a {
+            display: block;
+            margin-top: 35px; /* Increased margin */
+            text-align: center;
+            color: #4b5320;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #4b5320;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sports-list">
+            <h2>Popular Sports</h2>
+            <ul id="sports-list">
+                <li>Cricket</li>
+                <li>Football</li>
+                <li>Hockey</li>
+                <li>Badminton</li>
+                <li>Tennis</li>
+                <li>Kabaddi</li>
+                <li>Athletics</li>
+                <li>Swimming</li>
+                <li>Basketball</li>
+                <li>Volleyball</li>
+            </ul>
+        </div>
+        <div class="events-list">
+            <h2>Athletic Events</h2>
+            <ul id="events-list">
+                <li>100m Sprint</li>
+                <li>200m Sprint</li>
+                <li>400m Sprint</li>
+                <li>800m Run</li>
+                <li>1500m Run</li>
+                <li>Marathon</li>
+                <li>Long Jump</li>
+                <li>High Jump</li>
+                <li>Shot Put</li>
+                <li>Javelin Throw</li>
+            </ul>
+        </div>
+        <div class="search-column">
+            <input type="text" id="search-input" placeholder="Search sports or events...">
+            <a href="startpage.html">Back to Start</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const sportsList = document.getElementById('sports-list').getElementsByTagName('li');
+            const eventsList = document.getElementById('events-list').getElementsByTagName('li');
+
+            const filterList = (list, term) => {
+                Array.from(list).forEach(item => {
+                    const itemName = item.textContent.toLowerCase();
+                    if (itemName.includes(term)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            };
+
+            filterList(sportsList, searchTerm);
+            filterList(eventsList, searchTerm);
+        });
+    </script>
+</body>
+</html>

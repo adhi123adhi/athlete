@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Performance Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .analyze-btn {
+            background-color: #28a745;
+        }
+        .cancel-btn {
+            background-color: #dc3545;
+        }
+        canvas {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Athlete Performance Analysis</h2>
+        <input type="number" id="speed" placeholder="Speed ( kilo meters)" />
+        <input type="number" id="timeToExhaustion" placeholder="Time to Exhaustion (min)" />
+        <input type="number" id="timeToComplete" placeholder="Time to Complete Activity (min)" />
+        <input type="text" id="strengthFactors" placeholder="Strength Factors (comma separated)" />
+        <button class="analyze-btn" onclick="analyzePerformance()">Analyze</button>
+        <button class="cancel-btn" onclick="resetForm()">Cancel</button>
+        <canvas id="barChart"></canvas>
+        <canvas id="pieChart"></canvas>
+    </div>
+
+    <script>
+        function analyzePerformance() {
+            const speed = document.getElementById('speed').value;
+            const timeToExhaustion = document.getElementById('timeToExhaustion').value;
+            const timeToComplete = document.getElementById('timeToComplete').value;
+            const strengthFactors = document.getElementById('strengthFactors').value;
+
+            if (!speed || !timeToExhaustion || !timeToComplete || !strengthFactors) {
+                alert("Please fill in all fields before analyzing.");
+                return;
+            }
+
+            const speedInKm = speed / 1000;
+            const endurance = timeToExhaustion / timeToComplete;
+            const strength = strengthFactors.split(',').length * 10;
+            
+            const data = [
+                { label: 'Speed (km)', value: speedInKm },
+                { label: 'Endurance', value: endurance },
+                { label: 'Strength', value: strength }
+            ];
+            
+            document.getElementById('barChart').style.display = 'block';
+            document.getElementById('pieChart').style.display = 'block';
+            renderCharts(data);
+        }
+
+        function resetForm() {
+            document.getElementById('speed').value = '';
+            document.getElementById('timeToExhaustion').value = '';
+            document.getElementById('timeToComplete').value = '';
+            document.getElementById('strengthFactors').value = '';
+            document.getElementById('barChart').style.display = 'none';
+            document.getElementById('pieChart').style.display = 'none';
+        }
+
+        function renderCharts(data) {
+            const labels = data.map(d => d.label);
+            const values = data.map(d => d.value);
+
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Performance Metrics',
+                        data: values,
+                        backgroundColor: ['#0088FE', '#00C49F', '#FFBB28']
+                    }]
+                }
+            });
+
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: ['#0088FE', '#00C49F', '#FFBB28']
+                    }]
+                }
+            });
+        }
+    </script>
+</body>
+</html>

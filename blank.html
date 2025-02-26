@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>athlete hub - Create Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* ... (Your existing CSS styles) ... */
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        </div>
+
+    <script>
+        // Initialize Firebase (Replace with YOUR config)
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        // ... (Your existing JavaScript code for image uploads and URL validation) ...
+
+        // Add this code to preview the profile image
+        document.getElementById('file-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-pic').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function saveProfile() {
+            try {
+                // ... (Your existing code for input validation) ...
+
+                const profilePicFile = document.getElementById('file-input').files[0];
+                const certificateFiles = document.getElementById('certificate-input').files;
+
+                const profilePicURL = await uploadFile(profilePicFile, 'profile_pics');
+                const certificateURLs = await Promise.all(
+                    Array.from(certificateFiles).map(file => uploadFile(file, 'certificates'))
+                );
+
+                await db.collection('athletes').add({
+                    // ... (Your existing code to add data to Firestore) ...
+                });
+
+                alert("Profile created successfully!");
+                window.location.href = "profile.html"; // Redirect to profile page
+
+            } catch (error) {
+                console.error("Error saving profile:", error);
+                alert("Error saving profile. Please try again.");
+            }
+        }
+
+        async function uploadFile(file, folder) {
+            if (!file) return null;
+
+            const storageRef = storage.ref(`${folder}/${file.name}`);
+            const uploadTask = storageRef.put(file);
+
+            return new Promise((resolve, reject) => {
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        // You can monitor upload progress here if needed
+                    },
+                    (error) => {
+                        console.error("File upload error:", error); // Log the error!
+                        reject(error);
+                    },
+                    async () => {
+                        const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+                        resolve(downloadURL);
+                    }
+                );
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>athlete hub - Create Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .hero {
+            text-align: center;
+        }
+
+        .hero img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #435421;
+        }
+
+        .profile-image {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .profile-image input {
+            display: none;
+        }
+
+        .profile-image label {
+            background: #435421;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 5px;
+        }
+
+        h2 {
+            background: #435421;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .save-button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: #435421;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .save-button:hover {
+            background: #435421;
+        }
+
+        .certificate-preview img {
+            width: 100px;
+            height: auto;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align:center;">Create Your Profile</h1>
+        <section class="hero">
+            <img id="profile-pic" src="athlete-image.jpg" alt="Athlete">
+            <input type="text" class="input-field" placeholder="Enter Full Name" id="athlete-name">
+            <input type="text" class="input-field" placeholder="Enter Sure Name" id="athlete-nickname">
+        </section>
+
+        <section class="profile-image">
+            <input type="file" id="file-input" accept="image/*">
+            <label for="file-input">Upload Profile Image</label>
+        </section>
+
+        <section class="details">
+            <input type="number" class="input-field" placeholder="Age" id="athlete-age">
+            <input type="text" class="input-field" placeholder="Sport" id="athlete-sport">
+            <input type="text" class="input-field" placeholder="Nationality" id="athlete-nationality">
+            <input type="number" class="input-field" placeholder="Height (in cm)" id="athlete-height" step="0.01">
+            <input type="number" class="input-field" placeholder="Weight (in kg)" id="athlete-weight" step="0.01">
+            <input type="url" class="input-field" placeholder="Resume URL" id="athlete-resume">
+            <textarea class="input-field" placeholder="Enter a brief description about yourself"
+                id="athlete-description"></textarea>
+        </section>
+
+        <section class="achievements">
+            <h2>Achievements</h2>
+            <select class="input-field" id="achievement-level">
+                <option value="jonal">Zonal Level</option>
+                <option value="district">District Level</option>
+                <option value="state">State Level</option>
+                <option value="national">National Level</option>
+                <option value="international">International Level</option>
+            </select>
+            <textarea class="input-field" placeholder="List your achievements here"
+                id="athlete-achievements"></textarea>
+            <input type="file" id="certificate-input" accept="image/*" multiple>
+            <label for="certificate-input">Upload Certificate Images</label>
+            <div class="certificate-preview" id="certificate-preview"></div>
+        </section>
+
+        <button class="save-button" type="button" onclick="saveProfile(href=profile.html)">Save
+            Profile</button>
+    </div>
+
+    <script>
+        document.getElementById('file-input').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profile-pic').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('certificate-input').addEventListener('change', function (event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('certificate-preview');
+            previewContainer.innerHTML = '';
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    previewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+        function saveProfile() {
+            const heightInput = document.getElementById('athlete-height');
+            const weightInput = document.getElementById('athlete-weight');
+            const resumeInput = document.getElementById('athlete-resume');
+
+            const height = parseFloat(heightInput.value);
+            const weight = parseFloat(weightInput.value);
+
+            if (isNaN(height) || isNaN(weight)) {
+                alert("Height and weight must be valid numbers.");
+                return;
+            }
+
+            if (!isValidURL(resumeInput.value)) {
+                alert("Please enter a valid URL for your resume.");
+                return;
+            }
+
+            alert("Profile created successfully!");
+        }
+
+        function isValidURL(string) {
+            let url;
+
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+
+            return url.protocol === "http:" || url.protocol === "https:";
+        }
+    </script>
+</body>
+
+</html>

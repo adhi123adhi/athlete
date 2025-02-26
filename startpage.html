@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Journey</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #6b7b50;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #4b5320;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            display: inline-block; /* This is important! */
+            background: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #4b5320;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none; /* Remove underline from link */
+        }
+        .btn:hover {
+            background: #4b5320;
+            color: white;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Start Your Journey</h1>
+        <div class="button-container">
+            <a href="createprofile.html" class="btn">Create Your Profile</a>
+            <a href="explore.html" class="btn">Explore Sports</a>
+            <a href="community.html" class="btn">join community</a>
+            <a href="up event.html" class="btn">Upcoming Events</a>
+        </div>
+    </div>
+</body>
+</html>

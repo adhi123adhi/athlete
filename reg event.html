@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration - athlete hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Registration Section */
+        .registration {
+            padding: 6rem 0;
+        }
+
+        .registration-content {
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--olive-300);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--olive-500);
+            color: var(--white);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .submit-button:hover {
+            background: var(--olive-600);
+            box-shadow: 0 4px 12px rgba(74, 93, 35, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen bg-gradient">
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="#" class="logo">
+                        <img src="logo.png" alt="AthleteMosaic Logo">
+                        <span class="logo-text">athlete hub</span>
+                    </a>
+
+                    <nav class="nav">
+                        <ul class="nav-links">
+                            <li><a href="index.html" class="nav-link">Home</a></li>
+                            <li><a href="index.html#features" class="nav-link">Features</a></li>
+                            <li><a href="about.html" class="nav-link">About</a></li>
+                            <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="auth-buttons">
+                        <a href="login.html" class="nav-link">log In</a>
+                        <a href="sign.html" class="cta-button">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="registration" class="registration">
+                <div class="container">
+                    <h2 class="section-title fade-up">Event Registration</h2>
+                    <div class="registration-content">
+                        <form action="#" method="post">
+                            <div class="form-group fade-up delay-2">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group fade-up delay-3">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group fade-up delay-4">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group fade-up delay-5">
+                                <label for="age">Age</label>
+                                <input type="number" id="age" name="age" required>
+                            </div>
+                            <div class="form-group fade-up delay-6">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="submit-button fade-up delay-7">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <img src="logo.png" alt="AthleteMosaic Logo">
+                            <span>athlete hub</span>
+                        </div>
+                        <p class="footer-description">
+                            Empowering athletes and coaches with cutting-edge
+                            management tools for peak performance
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="#features" class="footer-link">Features</a></li>
+                            <li><a href="#about" class="footer-link">About Us</a></li>
+                            <li><a href="#contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Legal</h3>
+                        <ul class="footer-links">
+                            <li><a href="/privacy" class="footer-link">Privacy Policy</a></li>
+                            <li><a href="/terms" class="footer-link">Terms of Service</a></li>
+                            <li><a href="/cookies" class="footer-link">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Contact</h3>
+                        <ul class="footer-links">
+                            <li>support@athlete hub.com</li>
+                            <li>+91 123 456 7890</li>
+                            <li>Mumbai, India</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; <span class="copyright-year"></span> athlete hub. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

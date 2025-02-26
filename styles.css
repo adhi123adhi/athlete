@@ -4,13 +4,50 @@
     --olive-100: #e6e9dd;
     --olive-200: #ccd3bd;
     --olive-300: #b0bb99;
-    --olive-400: #94a277;
+    --olive-400: #94a276;
     --olive-500: #4A5D23;
     --olive-600: #435421;
     --olive-700: #2C3A14;
     --white: #ffffff;
     --transition: all 0.3s ease;
 }
+
+.signup-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.signup-section .form-group {
+    margin-bottom: 20px;
+}
+
+.signup-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.signup-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--olive-300);
+    border-radius: 5px;
+}
+
+.signup-section .cta-button {
+    background: var(--olive-500);
+    color: var(--white);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.signup-section .cta-button:hover {
+    background: var(--olive-600);
+}
+
 
 * {
     margin: 0;

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Log In</title>
+<style>
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom right, #4CAF50, #2E8B57);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 50px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.25); /* More prominent shadow */
+    width: 450px; /* Slightly wider */
+    text-align: left; /* Align text to the left */
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 40px; /* Increased margin */
+    text-align: center; /* Center the heading */
+}
+
+.form-group {
+    margin-bottom: 25px; /* Increased margin */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Increased margin */
+    color: #555; /* Slightly darker label color */
+    font-size: 15px; /* Slightly larger label size */
+}
+
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease; /* Add transition for focus */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.2); /* Subtle green shadow on focus */
+}
+
+
+.button-like {
+    display: inline-block;
+    width: 100%;
+    padding: 14px; /* Increased padding */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 500; /* Slightly bolder font-weight */
+}
+
+.button-like:hover {
+    background-color: #45a049;
+}
+
+.google-signin {
+    margin-top: 20px; /* Increased margin */
+}
+
+.switch-form {
+    margin-top: 25px; /* Increased margin */
+    color: #666;
+    text-align: center; /* Center the "Don't have an account?" text */
+}
+
+.switch-form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 15px; /* Increased margin */
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+</head>
+<body>
+<div class="container">
+  <h2>Log In</h2>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+  </div>
+  <button class="button-like" onclick="login()">Log In</button>
+
+  <div class="google-signin">
+    <button class="button-like" onclick="googleSignIn()">Sign in with Google</button>
+  </div>
+
+  <div class="switch-form">
+    Don't have an account? <a href="sign.html">Sign Up</a>
+  </div>
+  <div id="error" class="error-message"></div>
+</div>
+
+<script>
+  // Initialize Firebase (Replace with your own config)
+  const firebaseConfig = {
+    apiKey: "AIzaSyD4jdrApr2u2uUb4tEBYivlD2b6KB9otCo",
+    authDomain: "athlete-7731c.firebaseapp.com",
+    projectId: "athlete-7731c",
+    storageBucket: "athlete-7731c.firebasestorage.app",
+    messagingSenderId: "1091705276740",
+    appId: "1:1091705276740:web:3684f775a6dff7fa292f11",
+    measurementId: "G-9MHZ7FJS0J"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function login() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorDiv = document.getElementById('error');
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        window.location.href = "index.html"; // Redirect after login
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        errorDiv.textContent = errorMessage;
+      });
+  }
+
+  function googleSignIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    auth.signInWithPopup(provider)
+      .then((result) => {
+        const user = result.user;
+        window.location.href = "index.html"; // Redirect after login
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        document.getElementById('error').textContent = errorMessage;
+      });
+  }
+</script>
+</body>
+</html>
